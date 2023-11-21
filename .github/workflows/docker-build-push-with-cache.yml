@@ -39,7 +39,8 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        push: true
+        push: false
+        load: true
         tags: docker_cache_gh_actions_bug:${{ env.BRANCH_NAME }}
 #        file: Dockerfile
 #        target: ${{inputs.target}}
