@@ -1,11 +1,10 @@
 FROM python:3.8.17-alpine3.18
 
-RUN mkdir /root/mycache && \
-    touch /root/mycache/cache_file
+# ie for in-docker ccache, build artifacts etc
+RUN mkdir /root/mycache
 
 COPY . .
 
-RUN --mount=type=cache,target=/root/mycache && \
-    date >> /root/mycache/cache_file
-
-RUN cat /root/mycache/cache_file
+RUN --mount=type=cache,target=/root/mycache \
+    date >> /root/mycache/cache_file &&  \
+    cat /root/mycache/cache_file
