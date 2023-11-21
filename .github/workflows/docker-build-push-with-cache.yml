@@ -26,6 +26,15 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Set environment variables
+      shell: bash
+      run: |
+        set -x
+        echo "GITHUB_EVENT_NAME=${{ github.event_name }}" >> $GITHUB_ENV
+        echo "GITHUB_SHA=${{ github.sha }}" >> $GITHUB_ENV
+        echo "BASE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')" >> $GITHUB_ENV
+
     - name: Push Docker Image
       uses: docker/build-push-action@v4
       with:
